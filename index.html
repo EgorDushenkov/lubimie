@@ -1,0 +1,142 @@
+<!DOCTYPE html>  
+<html lang="ru">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Для Вас!</title>  
+    <style>  
+        body {  
+            display: flex;  
+            justify-content: center;  
+            align-items: center;  
+            height: 100vh;  
+            margin: 0;  
+            background-color: #f0f0f0;  
+            font-family: Arial, sans-serif;  
+            flex-direction: column;  
+            overflow: hidden;  
+            position: relative; /* Для позиционирования сердечек */  
+        }  
+        .message {  
+            font-size: 36px;  
+            text-align: center;  
+            margin-bottom: 20px;  
+            transition: opacity 0.5s ease;  
+        }  
+        .hidden {  
+            opacity: 0; /* Скрытие сообщения */  
+        }  
+        .bouquet {  
+            position: relative;  
+            display: flex;  
+            justify-content: center;  
+            align-items: flex-end; /* Поднимаем цветы к верхней части контейнера */  
+            transform: translateY(20%); /* Немного поднимаем всю группу цветов */  
+            opacity: 0; /* Изначально невидим */  
+            transition: opacity 0.5s; /* Плавное появление букета */  
+        }  
+        .flower {  
+            width: 100px; /* Ширина изображения с цветами */  
+            height: auto; /* Автоматическая высота по пропорциям */  
+            margin: 0 15px; /* Отступы между цветами */  
+            transform: rotate(0deg); /* Угол поворота по умолчанию */  
+        }  
+        
+        .flower:nth-child(1) {  
+            transform: rotate(-10deg); /* Поворот для первого цветка */  
+        }  
+        .flower:nth-child(2) {  
+            transform: rotate(0deg); /* Поворот для второго цветка */  
+        }  
+        .flower:nth-child(3) {  
+            transform: rotate(10deg); /* Поворот для третьего цветка */  
+        }  
+        
+        /* Стиль для сердечек */  
+        .heart {  
+            position: absolute;  
+            width: 50px; /* Ширина сердечка */  
+            height: 50px; /* Высота сердечка */  
+            background: url('pngw.png'); /* Ссылка на изображение сердечка */  
+            background-size: cover; /* Размер фонового изображения */  
+            animation: heartbeat 1s infinite; /* Анимация бьющегося сердца */  
+        }  
+
+        @keyframes heartbeat {  
+            0%, 20%, 100% {  
+                transform: scale(1);  
+            }  
+            10% {  
+                transform: scale(1.2); /* Увеличение сердечка */  
+            }  
+        }  
+
+        /* Позиционирование сердечек по углам */  
+        .heart.top-left {  
+            top: 10px;  
+            left: 10px;  
+        }  
+        .heart.top-right {  
+            top: 10px;  
+            right: 10px;  
+        }  
+        .heart.bottom-left {  
+            bottom: 10px;  
+            left: 10px;  
+        }  
+        .heart.bottom-right {  
+            bottom: 10px;  
+            right: 10px;  
+        }  
+    </style>  
+</head>  
+<body>  
+
+    <div id="message" class="message">Ой...</div>  
+    <div class="bouquet" id="bouquet">  
+        <img src="pngwing.png" alt="Роза" class="flower">  
+        <img src="pngwing.png" alt="Роза" class="flower">  
+        <img src="pngwing.png" alt="Роза" class="flower">  
+    </div>  
+    <div id="final-message" class="message hidden">Это вам!❤️</div>  
+
+    <!-- Сердечки -->  
+    <div class="heart top-left"></div>  
+    <div class="heart top-right"></div>  
+    <div class="heart bottom-left"></div>  
+    <div class="heart bottom-right"></div>  
+
+    <script>  
+        const messageElement = document.getElementById('message');  
+        const finalMessageElement = document.getElementById('final-message');  
+        const bouquetElement = document.getElementById('bouquet');  
+        let step = 0;  
+
+        document.body.addEventListener('click', () => {  
+            step++;  
+            if (step === 1) {  
+                messageElement.classList.add('hidden');  
+                setTimeout(() => {  
+                    messageElement.textContent = 'Вы нарушили закон!';  
+                    messageElement.classList.remove('hidden');  
+                }, 500);  
+            } else if (step === 2) {  
+                messageElement.classList.add('hidden');  
+                setTimeout(() => {  
+                    messageElement.textContent = 'Нельзя быть такой красивой!!!❤️';  
+                    messageElement.classList.remove('hidden');  
+                }, 500);  
+            } else if (step === 3) {  
+                messageElement.classList.add('hidden');  
+                setTimeout(() => {  
+                    bouquetElement.style.opacity = 1; // Показать букет  
+                }, 500);  
+                setTimeout(() => {  
+                    finalMessageElement.classList.remove('hidden'); // Показать финальное сообщение  
+                }, 1000); // Через 1 секунду после букета  
+            }  
+        });  
+    </script>  
+
+</body>  
+</html>
